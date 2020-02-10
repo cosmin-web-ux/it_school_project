@@ -1,0 +1,34 @@
+PRODUCTS
+- id : pk, a_i, unsigned, int(10)
+- manufacturer_id : unsigned, int(10), null
+- name
+- description
+- price
+- price_special : null
+
+CATEGORIES
+- id
+- name
+
+MANUFACTURERS
+- id
+- name
+
+PRODUCTS_CATEGORIES
+- product_id
+- category_id
+
+PRODUCTS_PHOTO
+- id
+- product_id
+- path : numele fisierului
+
+USERS
+- id
+- username
+- password
+
+
+
+
+
