@@ -1,4 +1,10 @@
 <?php
+require 'config/init.php';
+
+
+
+
+
 require 'views/head.php';
 require 'views/menu.php';
 ?>
