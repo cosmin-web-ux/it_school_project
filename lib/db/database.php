@@ -12,7 +12,7 @@ abstract class Database
       PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     ];
     $link = 'mysql:host=localhost; dbname=proiect; charset=utf8';
-    $connection = new PDO($link, 'root', 'root', $options);
+    $connection = new PDO($link, 'root', '', $options);
 
     $this->connection = $connection;
   }
