@@ -1,6 +1,12 @@
 <?php
 require 'config/init.php';
 
+$ip = $_SERVER['REMOTE_ADDR'];
+
+if (empty($_SESSION['auth']) || $_SESSION['ip'] != $ip) {
+  header('Location: login.php');
+}
+
 $manufacturersDb = new Manufacturer();
 $manufacturers = $manufacturersDb->getAll('name', 'asc');
 

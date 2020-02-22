@@ -1,6 +1,12 @@
 <?php
 require 'config/init.php';
 
+$ip = $_SERVER['REMOTE_ADDR'];
+
+if (empty($_SESSION['auth']) || $_SESSION['ip'] != $ip) {
+  header('Location: login.php');
+}
+
 if (empty($_GET['id'])) {
   header('Location: products.php');
 }
@@ -25,7 +31,7 @@ require_once 'views/menu.php';
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Adauga produs nou</h1>
+    <h1 class="h2">Modifica produs</h1>
   </div>
 
 

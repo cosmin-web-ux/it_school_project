@@ -1,6 +1,12 @@
 <?php
 require 'config/init.php';
 
+$ip = $_SERVER['REMOTE_ADDR'];
+
+if (empty($_SESSION['auth']) || $_SESSION['ip'] != $ip) {
+  header('Location: login.php');
+}
+
 $usersDb = new User();
 
 $users = $usersDb->getAll('id', 'desc');
@@ -37,7 +43,7 @@ require_once 'views/menu.php';
           <td><?= $user['username'] ?></td>
           <td>
             <div class="btn-group">
-              <a href="user_edit.php?id=<?= $user['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
+              <a href="users_edit.php?id=<?= $user['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
               <a href="users_delete.php?id=<?= $user['id'] ?>" class="btn btn-danger btn-sm">Sterge</a>
             </div>
           </td>
