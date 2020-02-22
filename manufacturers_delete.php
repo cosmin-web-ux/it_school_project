@@ -7,4 +7,4 @@ if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
   $manufacturersDb->delete($_GET['id']);
 }
 
-header("location: manufacturers.php");
+header("Location: manufacturers.php");

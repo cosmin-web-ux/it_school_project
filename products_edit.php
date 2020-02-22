@@ -13,16 +13,11 @@ $currentProduct = $productDb->getById($_GET['id']);
 $manufacturersDb = new Manufacturer();
 $manufacturers = $manufacturersDb->getAll('name', 'asc');
 
-
-
-
-
 if (!empty($_POST['name']) && !empty($_POST['description']) && !empty($_POST['price']) && !empty($_POST['price_special']) && !empty($_POST['manufacturer_id'])) {
 
   $productDb->update($_GET['id'], $_POST['manufacturer_id'], $_POST['name'], $_POST['description'], $_POST['price'], $_POST['price_special']);
-  header("location: products.php");
+  header("Location: products.php");
 }
-
 
 require_once 'views/head.php';
 require_once 'views/menu.php';
@@ -82,9 +77,7 @@ require_once 'views/menu.php';
       }, 3000);
     </script>
 
-
   <?php endif; ?>
-
 
 </main>
 

@@ -7,4 +7,4 @@ if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
   $usersDb->delete($_GET['id']);
 }
 
-header("location: users.php");
+header("Location: users.php");

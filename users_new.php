@@ -5,9 +5,8 @@ if (!empty($_POST['username']) && ($_POST['password'])) {
 
   $usersDb = new User();
   $usersDb->create($_POST['username'], $_POST['password']);
-  header("location: users.php");
+  header("Location: users.php");
 }
-
 
 require_once 'views/head.php';
 require_once 'views/menu.php';

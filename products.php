@@ -1,8 +1,21 @@
 <?php
 require 'config/init.php';
 
-$productDB = new Product();
-$products = $productDB->getAll('id', 'desc');
+$ip = $_SERVER['REMOTE_ADDR'];
+
+if (empty($_SESSION['auth']) || $_SESSION['ip'] != $ip) {
+  header('Location: login.php');
+}
+
+try {
+
+  $productDb = new Product();
+  $products = $productDb->getAll('id', 'desc');
+} catch (Exception $ex) {
+
+  $errorMessage = "A aparut o eroare: ";
+  $errorMessage .= $ex->getMessage();
+}
 
 require 'views/head.php';
 require 'views/menu.php';
@@ -13,38 +26,51 @@ require 'views/menu.php';
     <h1 class="h2">Lista produse</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="btn-group mr-2">
-        <a href="products_new.php">
-          <button type="button" class="btn btn-sm btn-outline-success">Adauga produs nou</button></a>
+        <a href="products_new.php" class="btn btn-sm btn-outline-success">Adauga produs nou</a>
       </div>
     </div>
   </div>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nume produs</th>
-        <th>Pret</th>
-        <th>Actiuni</th>
-      </tr>
-    </thead>
-    <tbody>
 
-      <?php foreach ($products as $product) : ?>
+  <?php if (isset($errorMessage)) : ?>
+
+    <div class="alert alert-danger"><?= $errorMessage ?></div>
+
+  <?php else : ?>
+
+
+    <table class="table table-striped">
+
+      <thead>
         <tr>
-          <td><?= $product['id'] ?></td>
-          <td><?= $product['name'] ?></td>
-          <td><?= $product['price'] ?> lei</td>
-          <td>
-            <div class="btn-group">
-              <a href="products_edit.php?id=<?= $product['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
-              <a href="products_delete.php?id=<?= $product['id'] ?>" class="btn btn-danger btn-sm">Sterge</a>
-            </div>
-          </td>
+          <th>ID</th>
+          <th>Nume produs</th>
+          <th>Pret</th>
+          <th>Actiuni</th>
         </tr>
-      <?php endforeach; ?>
+      </thead>
 
-    </tbody>
-  </table>
+      <tbody>
+
+        <?php foreach ($products as $product) : ?>
+          <tr>
+            <td><?= $product['id'] ?></td>
+            <td><?= $product['name'] ?></td>
+            <td><?= $product['price'] ?> lei</td>
+            <td>
+              <div class="btn-group">
+                <a href="products_edit.php?id=<?= $product['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
+                <a href="products_delete.php?id=<?= $product['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
+              </div>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+
+      </tbody>
+
+    </table>
+
+  <?php endif; ?>
+
 </main>
 
 <?php

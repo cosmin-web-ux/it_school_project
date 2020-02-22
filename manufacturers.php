@@ -1,9 +1,9 @@
 <?php
 require 'config/init.php';
 
+$manufacturersDB = new Manufacturer();
 
-
-
+$manufacturers = $manufacturersDB->getAll('id', 'desc');
 
 require 'views/head.php';
 require 'views/menu.php';
@@ -14,13 +14,40 @@ require 'views/menu.php';
     <h1 class="h2">Lista producatori</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="btn-group mr-2">
-        <button type="button" class="btn btn-sm btn-outline-success">Adauga producator nou</button>
+        <a href="manufacturers_new.php" class="btn btn-sm btn-outline-success">Adauga producator nou</a>
       </div>
     </div>
   </div>
 
+  <table class="table table-striped">
+
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Producator</th>
+        <th>Actiuni</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <?php foreach ($manufacturers as $manufacturer) : ?>
+        <tr>
+          <td><?= $manufacturer['id'] ?></td>
+          <td><?= $manufacturer['name'] ?></td>
+          <td>
+            <div class="btn-group">
+              <a href="manufacturers_edit.php?id=<?= $manufacturer['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
+              <a href="manufacturers_delete.php?id=<?= $manufacturer['id'] ?>" class="btn btn-danger btn-sm">Sterge</a>
+            </div>
+          </td>
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
+
+  </table>
+
 </main>
 
 <?php
-require 'views/footer.php';
+require_once 'views/footer.php';
 ?>

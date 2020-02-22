@@ -7,4 +7,4 @@ if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
   $categoriesDb->delete($_GET['id']);
 }
 
-header("location: categories.php");
+header("Location: categories.php");
