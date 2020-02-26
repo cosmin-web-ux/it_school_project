@@ -74,6 +74,8 @@ require_once 'views/menu.php';
 
     </form>
 
+
+
   <?php else : ?>
 
     <div class="alert alert-danger">Produsul nu mai exista</div>

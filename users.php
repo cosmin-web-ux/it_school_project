@@ -7,9 +7,13 @@ if (empty($_SESSION['auth']) || $_SESSION['ip'] != $ip) {
   header('Location: login.php');
 }
 
-$usersDb = new User();
-
-$users = $usersDb->getAll('id', 'desc');
+try {
+  $usersDb = new User();
+  $users = $usersDb->getAll('id', 'desc');
+} catch (Exception $ex) {
+  $errorMessage = 'A aparut o eroare';
+  $errorMessage .= $ex->getMessage();
+}
 
 require_once 'views/head.php';
 require_once 'views/menu.php';

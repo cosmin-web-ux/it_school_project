@@ -7,9 +7,13 @@ if (empty($_SESSION['auth']) || $_SESSION['ip'] != $ip) {
   header('Location: login.php');
 }
 
-$manufacturersDB = new Manufacturer();
-
-$manufacturers = $manufacturersDB->getAll('id', 'desc');
+try {
+  $manufacturersDB = new Manufacturer();
+  $manufacturers = $manufacturersDB->getAll('id', 'desc');
+} catch (Exception $ex) {
+  $errorMessage = 'A aparut o eroare';
+  $errorMessage .= $ex->getMessage();
+}
 
 require 'views/head.php';
 require 'views/menu.php';

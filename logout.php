@@ -1,8 +1,7 @@
 <?php
 
-session_start();
+include 'config/init.php';
 
-session_unset();
-session_destroy();
+Auth::logout();
 
 header('Location: login.php');
