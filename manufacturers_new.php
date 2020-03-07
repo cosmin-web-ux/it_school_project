@@ -1,17 +1,14 @@
 <?php
 require 'config/init.php';
 
-$ip = $_SERVER['REMOTE_ADDR'];
-
-if (empty($_SESSION['auth']) || $_SESSION['ip'] != $ip) {
+if (!Auth::checkLogin()) {
   header('Location: login.php');
 }
 
 if (!empty($_POST['name'])) {
-
-  $productDb = new Manufacturer();
-  $productDb->create($_POST['name']);
-  header("Location: manufacturers.php");
+  $manufacturerDb = new Manufacturer();
+  $manufacturerDb->create($_POST['name']);
+  header('Location: manufacturers.php');
 }
 
 require_once 'views/head.php';

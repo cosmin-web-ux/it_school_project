@@ -1,6 +1,10 @@
 <?php
 require 'config/init.php';
 
+if (!Auth::checkLogin()) {
+  header('Location: login.php');
+}
+
 if (!empty($_POST['name'])) {
   $categoriesDb = new Category();
   $categoriesDb->create($_POST['name']);

@@ -1,22 +1,18 @@
 <?php
 require 'config/init.php';
 
-$ip = $_SERVER['REMOTE_ADDR'];
-
-if (empty($_SESSION['auth']) || $_SESSION['ip'] != $ip) {
+if (!Auth::checkLogin()) {
   header('Location: login.php');
 }
 
 $manufacturersDb = new Manufacturer();
 $manufacturers = $manufacturersDb->getAll('name', 'asc');
 
-
 if (!empty($_POST['name']) && !empty($_POST['description']) && !empty($_POST['price']) && !empty($_POST['price_special']) && !empty($_POST['manufacturer_id'])) {
   $productDb = new Product();
   $productDb->create($_POST['manufacturer_id'], $_POST['name'], $_POST['description'], $_POST['price'], $_POST['price_special']);
   header("location: products.php");
 }
-
 
 require_once 'views/head.php';
 require_once 'views/menu.php';

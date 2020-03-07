@@ -6,11 +6,9 @@ if (!Auth::checkLogin()) {
 }
 
 try {
-
   $productDb = new Product();
   $products = $productDb->getAll('id', 'desc');
 } catch (Exception $ex) {
-
   $errorMessage = "A aparut o eroare: ";
   $errorMessage .= $ex->getMessage();
 }

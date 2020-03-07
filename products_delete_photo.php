@@ -2,6 +2,10 @@
 
 include 'config/init.php';
 
+if (!Auth::checkLogin()) {
+  header('Location: login.php');
+}
+
 if (!empty($_GET['id'])) {
   $productDb = new Product();
   $photo = $productDb->getPhotoById($_GET['id']);
