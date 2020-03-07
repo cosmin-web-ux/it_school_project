@@ -15,11 +15,25 @@ if (empty($_GET['id'])) {
 $productDb = new Product();
 $currentProduct = $productDb->getById($_GET['id']);
 
+// extragem toate pozele din baza de date pentru produs
+$photos = $productDb->getPhotos($currentProduct['id']);
+
 //selectam din baza de date producatorii pentru afisarea lor in <select>
 $manufacturersDb = new Manufacturer();
 $manufacturers = $manufacturersDb->getAll('name', 'asc');
 
+// trimitere de formular si salvare in baza de date
 if (!empty($_POST['name']) && !empty($_POST['description']) && !empty($_POST['price']) && !empty($_POST['price_special']) && !empty($_POST['manufacturer_id'])) {
+
+  if (!empty($_FILES['photo']['name'])) {
+
+    $fileName = $_FILES['photo']['name'];
+    $tmpFile = $_FILES['photo']['tmp_name'];
+
+    if (move_uploaded_file($tmpFile, "media/products/" . $fileName)) {
+      $productDb->addPhoto($currentProduct['id'], $fileName);
+    }
+  }
 
   $productDb->update($_GET['id'], $_POST['manufacturer_id'], $_POST['name'], $_POST['description'], $_POST['price'], $_POST['price_special']);
   header("Location: products.php");
@@ -69,12 +83,26 @@ require_once 'views/menu.php';
         <label>Descriere</label>
         <textarea class="form-control" name="description"><?= $currentProduct['description'] ?></textarea>
       </div>
+      <div class="form-group">
+        <label>Photo</label>
+        <input type="file" name="photo">
+      </div>
 
       <input type="submit" value="Salveaza" class="btn btn-primary" />
 
     </form>
 
+    <h4 class="mt-5">Poze</h4>
 
+    <div class="row">
+      <?php foreach ($photos as $photo) : ?>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <img src="media/products/<?= $photo['filename'] ?>" style="width:100%">
+          <a href="products_delete_photo.php?id=<?= $photo['id'] ?>">Sterge imaginea</a>
+        </div>
+      <?php endforeach; ?>
+    </div>
+    <br><br>
 
   <?php else : ?>
 

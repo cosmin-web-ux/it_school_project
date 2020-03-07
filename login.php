@@ -5,17 +5,11 @@ include 'views/head.php';
 
 if (!empty($_POST['username']) && !empty($_POST['password'])) {
 
-  $userDb = new User();
-  $user = $userDb->getUser($_POST['username'], $_POST['password']);
+  $user = Auth::login($_POST['username'], $_POST['password']);
 
   if ($user) {
-
-    $_SESSION['auth'] = true;
-    $_SESSION['username'] = $user['username'];
-    $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
     header('Location: products.php');
   } else {
-
     $errorMessage = 'User sau parola incorecte!';
   }
 }

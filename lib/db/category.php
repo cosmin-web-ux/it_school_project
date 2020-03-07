@@ -4,7 +4,6 @@ require_once 'database.php';
 
 class Category extends Database
 {
-
   protected $tableName = 'categories';
 
   public function create($name)

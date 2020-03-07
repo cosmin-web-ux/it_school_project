@@ -2,26 +2,26 @@
 
 require_once 'database.php';
 
-class Manufacturer extends Database {
+class Manufacturer extends Database
+{
+  protected $tableName = 'manufacturers';
 
-    protected $tableName = 'manufacturers';
+  public function create($name)
+  {
+    $data = [
+      'name' => $name
+    ];
+    $query = $this->connection->prepare("insert into $this->tableName (name) values (:name) ");
+    $query->execute($data);
+  }
 
-    public function create($name) {
-        $data = [
-            'name' => $name
-        ];
-        $query = $this->connection->prepare("insert into $this->tableName (name) values (:name) ");
-        $query->execute($data);
-    }
-
-    public function update($id, $name) {
-        $data = [
-            'id' => $id,
-            'name' => $name
-        ];
-        $query = $this->connection->prepare("update $this->tableName set name = :name where id = :id");
-        $query->execute($data);
-    }
-
+  public function update($id, $name)
+  {
+    $data = [
+      'id' => $id,
+      'name' => $name
+    ];
+    $query = $this->connection->prepare("update $this->tableName set name = :name where id = :id");
+    $query->execute($data);
+  }
 }
-

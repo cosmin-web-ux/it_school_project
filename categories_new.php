@@ -1,12 +1,6 @@
 <?php
 require 'config/init.php';
 
-$ip = $_SERVER['REMOTE_ADDR'];
-
-if (empty($_SESSION['auth']) || $_SESSION['ip'] != $ip) {
-  header('Location: login.php');
-}
-
 if (!empty($_POST['name'])) {
   $categoriesDb = new Category();
   $categoriesDb->create($_POST['name']);

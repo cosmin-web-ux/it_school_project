@@ -34,4 +34,49 @@ class Product extends Database
                 description = :description, price = :price,price_special = :price_special  where id = :id");
     $query->execute($data);
   }
+
+  public function addPhoto($productId, $fileName)
+  {
+    $data = [
+      'productId' => $productId,
+      'filename' => $fileName
+    ];
+
+    $query = $this->connection->prepare("insert into product_photos (product_id, filename) values (:productId, :filename)");
+    $query->execute($data);
+  }
+
+  public function deletePhoto($id)
+  {
+    $data = [
+      'id' => $id
+    ];
+
+    $query = $this->connection->prepare("delete from product_photos where id = :id");
+    $query->execute($data);
+  }
+
+  public function getPhotoById($id)
+  {
+    $data = [
+      'id' => $id
+    ];
+
+    $query = $this->connection->prepare("select * from product_photos where id = :id ");
+    $query->execute($data);
+
+    return $query->fetch();
+  }
+
+  public function getPhotos($productId)
+  {
+    $data = [
+      'productId' => $productId
+    ];
+
+    $query = $this->connection->prepare("select * from product_photos where product_id = :productId ");
+    $query->execute($data);
+
+    return $query->fetchAll();
+  }
 }
