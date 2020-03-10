@@ -7,10 +7,18 @@ if (!Auth::checkLogin()) {
 
 try {
   $productDb = new Product();
-  $products = $productDb->getAll('id', 'desc');
+
+  if (!empty($_GET['search'])) {
+    $products = $productDb->search($_GET['search']);
+  } else {
+    $products = $productDb->getAll('id', 'desc');
+  }
 } catch (Exception $ex) {
   $errorMessage = "A aparut o eroare: ";
   $errorMessage .= $ex->getMessage();
+
+  $errorMessage .= " File: " . $ex->getFile();
+  $errorMessage .= " Line: " . $ex->getLine();
 }
 
 require 'views/head.php';
@@ -39,7 +47,9 @@ require 'views/menu.php';
       <thead>
         <tr>
           <th>ID</th>
+          <th>Photo</th>
           <th>Nume produs</th>
+          <th>Producator</th>
           <th>Pret</th>
           <th>Actiuni</th>
         </tr>
@@ -50,7 +60,15 @@ require 'views/menu.php';
         <?php foreach ($products as $product) : ?>
           <tr>
             <td><?= $product['id'] ?></td>
+            <td>
+              <?php if ($product['filename']) : ?>
+                <img style="max-height: 50px; max-width: 50px;" src="media/products/<?= $product['filename'] ?>">
+              <?php else : ?>
+                -
+              <?php endif; ?>
+            </td>
             <td><?= $product['name'] ?></td>
+            <td><?= $product['manufacturer_name'] ?></td>
             <td><?= $product['price'] ?> lei</td>
             <td>
               <div class="btn-group">

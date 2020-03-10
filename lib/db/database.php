@@ -11,7 +11,7 @@ abstract class Database
       PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
       PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     ];
-    $link = 'mysql:host=localhost; dbname=proiect; charset=utf8';
+    $link = 'mysql:host=localhost; dbname=project_itschool; charset=utf8';
     $connection = new PDO($link, 'root', '', $options);
 
     $this->connection = $connection;

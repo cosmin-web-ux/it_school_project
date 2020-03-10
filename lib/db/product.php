@@ -6,6 +6,50 @@ class Product extends Database
 {
   protected $tableName = 'products';
 
+  public function getAll($orderColumn = 'id', $orderWay = 'asc')
+  {
+    $sql = "SELECT
+              products.*,
+              manufacturers.name as manufacturer_name,
+              product_photos.filename
+            FROM `products`
+            LEFT JOIN manufacturers
+              ON products.manufacturer_id = manufacturers.id
+            LEFT JOIN product_photos
+              ON products.product_photo_id = product_photos.id
+            ORDER by $orderColumn $orderWay";
+
+    $query = $this->connection->query($sql);
+    $products = $query->fetchAll();
+    return $products;
+  }
+
+  public function search($searchText, $orderColumn = 'id', $orderWay = 'asc')
+  {
+    $data = [
+      'searchText' => "%" . $searchText . "%"
+    ];
+
+    $sql = "SELECT
+              products.*,
+              manufacturers.name as manufacturer_name,
+              product_photos.filename
+            FROM `products`
+            LEFT JOIN manufacturers
+              ON products.manufacturer_id = manufacturers.id
+            LEFT JOIN product_photos
+              ON products.product_photo_id = product_photos.id
+            WHERE 1
+              AND products.name like :searchText
+              OR products.description like :searchText
+            ORDER BY $orderColumn $orderWay";
+    $query = $this->connection->prepare($sql);
+    $query->execute($data);
+
+    $products = $query->fetchAll();
+    return $products;
+  }
+
   public function create($manufacturer_id, $name, $description, $price, $price_special)
   {
     $data = [
