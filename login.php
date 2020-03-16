@@ -3,6 +3,8 @@
 include 'config/init.php';
 include 'views/head.php';
 
+use Helpers\Auth;
+
 if (!empty($_POST['username']) && !empty($_POST['password'])) {
 
   $user = Auth::login($_POST['username'], $_POST['password']);

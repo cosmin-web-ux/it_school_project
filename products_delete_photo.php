@@ -2,6 +2,9 @@
 
 include 'config/init.php';
 
+use Helpers\Auth;
+use Db\Product;
+
 if (!Auth::checkLogin()) {
   header('Location: login.php');
 }

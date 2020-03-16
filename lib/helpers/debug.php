@@ -1,5 +1,7 @@
 <?php
 
+namespace Helpers;
+
 class Debug
 {
   public static function dump($var, $dump = false)

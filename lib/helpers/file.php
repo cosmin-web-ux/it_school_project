@@ -1,5 +1,7 @@
 <?php
 
+namespace Helpers;
+
 class File
 {
   public static function getNextFilename($dir, $filename)

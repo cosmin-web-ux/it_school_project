@@ -1,6 +1,6 @@
 <?php
 
-require_once 'database.php';
+namespace Db;
 
 class Product extends Database
 {
@@ -122,5 +122,57 @@ class Product extends Database
     $query->execute($data);
 
     return $query->fetchAll();
+  }
+
+  public function setPhoto($photoId, $productId)
+  {
+    $data = [
+      'productId' => $productId,
+      'photoId' => $photoId
+    ];
+
+    $query = $this->connection->prepare("update products set product_photo_id = :photoId");
+    $query->execute($data);
+  }
+
+  public function addCategory($categoryId, $productId)
+  {
+    $data = [
+      'categoryId' => $categoryId,
+      'productId' => $productId
+    ];
+
+    $query = $this->connection->prepare("insert into products_categories (category_id, product_id) values (:categoryId, :productId) ");
+    $query->execute($data);
+  }
+
+  public function removeCategories($productId)
+  {
+    $data = [
+      'productId' => $productId
+    ];
+
+    $query = $this->connection->prepare("delete from products_categories where product_id = :productId");
+    $query->execute($data);
+  }
+
+  public function getCategoryIds($productId)
+  {
+    $data = [
+      'productId' => $productId
+    ];
+
+    $query = $this->connection->prepare("select * from products_categories where product_id = :productId");
+    $query->execute($data);
+
+    $dbCategories = $query->fetchAll();
+
+    $categoryIds = [];
+
+    foreach ($dbCategories as $key => $category) {
+      $categoryIds[] = $category['category_id'];
+    }
+
+    return $categoryIds;
   }
 }

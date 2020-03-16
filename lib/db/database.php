@@ -1,5 +1,7 @@
 <?php
 
+namespace Db;
+
 abstract class Database
 {
   protected $connection;
@@ -8,11 +10,11 @@ abstract class Database
   public function __construct()
   {
     $options = [
-      PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-      PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+      \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+      \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
     ];
     $link = 'mysql:host=localhost; dbname=project_itschool; charset=utf8';
-    $connection = new PDO($link, 'root', '', $options);
+    $connection = new \PDO($link, 'root', '', $options);
 
     $this->connection = $connection;
   }

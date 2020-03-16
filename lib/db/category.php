@@ -1,6 +1,6 @@
 <?php
 
-require_once 'database.php';
+namespace Db;
 
 class Category extends Database
 {

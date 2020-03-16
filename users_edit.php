@@ -2,6 +2,9 @@
 
 require 'config/init.php';
 
+use Helpers\Auth;
+use Db\User;
+
 if (!Auth::checkLogin()) {
   header('Location: login.php');
 }

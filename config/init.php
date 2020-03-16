@@ -29,15 +29,13 @@ date_default_timezone_set(TIMEZONE);
 //////////////////////////////////////////////////////////////////////////
 function autoloader($class)  // Student
 {
-  $classFilePathDB = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "lib" . DIRECTORY_SEPARATOR . "db" . DIRECTORY_SEPARATOR . $class . ".php";
-  if (file_exists($classFilePathDB)) {
-    require_once $classFilePathDB;
-  }
+  $classData = explode("\\", $class);
 
-  $classFilePathHelpers = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "lib" . DIRECTORY_SEPARATOR . "helpers" . DIRECTORY_SEPARATOR . $class . ".php";
-  if (file_exists($classFilePathHelpers)) {
-    require_once $classFilePathHelpers;
-  }
+  $libDirectory = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "lib" . DIRECTORY_SEPARATOR; // lib/
+  $libDirectory .= strtolower($classData[0]) . DIRECTORY_SEPARATOR; // lib/db , lib/helpers
+  $fileToInclude = $libDirectory . strtolower($classData[1]) . ".php"; // lib/db/category.php
+
+  require_once $fileToInclude;
 }
 
 spl_autoload_register('autoloader');

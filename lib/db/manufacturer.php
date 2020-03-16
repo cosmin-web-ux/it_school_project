@@ -1,6 +1,6 @@
 <?php
 
-require_once 'database.php';
+namespace Db;
 
 class Manufacturer extends Database
 {

@@ -1,5 +1,9 @@
 <?php
 
+namespace Helpers;
+
+use Db\User;
+
 class Auth
 {
   public static function login($username, $password)

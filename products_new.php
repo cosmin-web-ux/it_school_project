@@ -1,6 +1,10 @@
 <?php
 require 'config/init.php';
 
+use Helpers\Auth;
+use Db\Product;
+use Db\Manufacturer;
+
 if (!Auth::checkLogin()) {
   header('Location: login.php');
 }
