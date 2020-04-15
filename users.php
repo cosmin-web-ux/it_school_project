@@ -57,10 +57,20 @@ require_once 'views/menu.php';
     </tbody>
 
   </table>
-
-
 </main>
 
 <?php
 require_once 'views/footer.php';
 ?>
+
+<script>
+  let deleteUsername = document.querySelector('tbody > tr > td > .btn-group > a:last-child');
+  deleteUsername.addEventListener('click', e => {
+    e.preventDefault();
+    let confirmation = confirm('Esti sigur(a) ca vrei sa stergi acest user?');
+    if (confirmation)
+      window.location = deleteUsername.getAttribute('href')
+    else
+      window.location.reload();
+  });
+</script>

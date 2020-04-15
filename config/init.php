@@ -30,7 +30,7 @@ date_default_timezone_set(TIMEZONE);
 function autoloader($class)  // Student
 {
   $classData = explode("\\", $class);
-
+  print_r($classData);
   $libDirectory = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "lib" . DIRECTORY_SEPARATOR; // lib/
   $libDirectory .= strtolower($classData[0]) . DIRECTORY_SEPARATOR; // lib/db , lib/helpers
   $fileToInclude = $libDirectory . strtolower($classData[1]) . ".php"; // lib/db/category.php

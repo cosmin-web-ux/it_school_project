@@ -9,15 +9,15 @@ if (!Auth::checkLogin()) {
 }
 
 try {
-  $categoriesDb = new Category();
-  $categories = $categoriesDb->getAll('id', 'desc');
+  $categoryDb = new Category();
+  $categories = $categoryDb->getAll('id', 'desc');
 } catch (Exception $ex) {
-  $errorMessage = 'A aparut o eroare';
+  $errorMessage = "A aparut o eroare: ";
   $errorMessage .= $ex->getMessage();
 }
 
-require_once 'views/head.php';
-require_once 'views/menu.php';
+require 'views/head.php';
+require 'views/menu.php';
 ?>
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
@@ -29,36 +29,41 @@ require_once 'views/menu.php';
       </div>
     </div>
   </div>
+  <?php if (isset($errorMessage)) : ?>
 
-  <table class="table table-striped">
+    <div class="alert alert-danger"><?= $errorMessage ?></div>
 
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nume </th>
-        <th>Actiuni</th>
-      </tr>
-    </thead>
+  <?php else : ?>
 
-    <tbody>
-      <?php foreach ($categories as $category) : ?>
+    <table class="table table-striped">
+
+      <thead>
         <tr>
-          <td><?= $category['id'] ?></td>
-          <td><?= $category['name'] ?></td>
-          <td>
-            <div class="btn-group">
-              <a href="categories_edit.php?id=<?= $category['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
-              <a href="categories_delete.php?id=<?= $category['id'] ?>" class="btn btn-danger btn-sm">Sterge</a>
-            </div>
-          </td>
+          <th>ID</th>
+          <th>Nume </th>
+          <th>Actiuni</th>
         </tr>
-      <?php endforeach; ?>
-    </tbody>
+      </thead>
 
-  </table>
+      <tbody>
+
+        <?php foreach ($categories as $category) : ?>
+          <tr>
+            <td><?= $category['id'] ?></td>
+            <td><?= $category['name'] ?></td>
+            <td>
+              <div class="btn-group">
+                <a href="categories_edit.php?id=<?= $category['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
+                <a href="categories_delete.php?id=<?= $category['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
+              </div>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+
+      </tbody>
+
+    </table>
+
+  <?php endif; ?>
 
 </main>
-
-<?php
-require_once 'views/footer.php';
-?>

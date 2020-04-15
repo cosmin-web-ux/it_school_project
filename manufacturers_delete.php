@@ -11,8 +11,6 @@ if (!Auth::checkLogin()) {
 
 if (!empty($_GET['id']) && is_numeric($_GET['id'])) {
 
-  require 'config/init.php';
-
   $manufacturersDb = new Manufacturer();
   $manufacturersDb->delete($_GET['id']);
 }
