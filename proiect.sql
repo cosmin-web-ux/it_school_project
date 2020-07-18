@@ -72,7 +72,8 @@ CREATE TABLE `products` (
   `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` float UNSIGNED NOT NULL,
-  `price_special` float UNSIGNED NOT NULL
+  `price_special` float UNSIGNED NOT NULL,
+  `product_photo_id` int(10) UNSIGNED
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
