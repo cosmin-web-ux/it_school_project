@@ -131,7 +131,7 @@ class Product extends Database
             'photoId' => $photoId
         ];
 
-        $query = $this->connection->prepare("update products set product_photo_id = :photoId where product_id = :productId");
+        $query = $this->connection->prepare("update products set product_photo_id = :photoId where id = :productId");
         $query->execute($data);
     }
 
